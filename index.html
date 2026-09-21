@@ -1,149 +1,121 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stayly — Homestay Booking Prototype</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StayMalaysia — Prototype Tempahan Penginapan</title>
 <style>
-:root{
-  --bg:#f7f8fa; --card:#fff; --text:#17202a; --muted:#6b7280;
-  --line:#e7e9ed; --primary:#111827; --accent:#e11d48; --soft:#fff1f2;
-}
-*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-button,input{font:inherit} button{cursor:pointer}
-.nav{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:20}
-.logo{font-weight:800;font-size:25px;letter-spacing:-1px}.logo span{color:var(--accent)}
-.navlinks{display:flex;gap:26px;color:#4b5563;font-size:14px}.navlinks a{cursor:pointer}.navbtn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 16px}
-.hero{background:linear-gradient(120deg,#111827,#273449);padding:54px 6% 80px;color:#fff}
-.hero h1{font-size:44px;line-height:1.05;max-width:650px;margin:20px 0 12px;letter-spacing:-2px}.hero p{color:#d1d5db;max-width:580px}
-.search{background:#fff;color:#111827;border-radius:18px;padding:9px;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr auto;gap:7px;margin-top:34px;box-shadow:0 18px 45px #0004;max-width:1100px}
-.field{padding:13px 15px;border-right:1px solid var(--line)}.field small{display:block;color:var(--muted);font-size:11px;margin-bottom:3px}.field input{border:0;outline:0;width:100%;font-weight:600}.searchbtn{border:0;background:var(--accent);color:#fff;border-radius:13px;padding:0 22px;font-weight:700}
-.wrap{max-width:1200px;margin:auto;padding:42px 20px}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}.sectionhead h2{margin:0;font-size:25px}.sectionhead span{color:var(--muted);font-size:14px}
-.filters{display:flex;gap:10px;overflow:auto;margin-bottom:25px}.chip{white-space:nowrap;background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px}.chip.active{background:#111827;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 5px 18px #11182708;transition:.2s}.card:hover{transform:translateY(-3px);box-shadow:0 14px 30px #11182712}
-.gallery{height:235px;position:relative;overflow:hidden;background:#ddd}.gallery img{width:100%;height:100%;object-fit:cover;display:none}.gallery img.active{display:block}.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px}.dot{width:6px;height:6px;border-radius:50%;background:#ffffff88}.dot.active{background:#fff}.arrow{position:absolute;top:50%;transform:translateY(-50%);border:0;background:#ffffffd9;width:32px;height:32px;border-radius:50%;font-size:20px}.prev{left:10px}.next{right:10px}.badge{position:absolute;top:12px;left:12px;background:#fff;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700}
-.info{padding:17px}.location{font-size:12px;color:var(--muted)}.name{font-size:18px;font-weight:750;margin:5px 0}.meta{font-size:13px;color:var(--muted);display:flex;gap:10px}.price{margin-top:15px;display:flex;justify-content:space-between;align-items:end}.price strong{font-size:19px}.price small{color:var(--muted)}.book{background:#111827;color:#fff;border:0;border-radius:10px;padding:9px 13px}
-.features{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:15px}.feature{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.feature b{display:block;margin-bottom:5px}.feature span{color:var(--muted);font-size:13px}
-.modal{display:none;position:fixed;inset:0;background:#0008;z-index:50;align-items:center;justify-content:center;padding:15px}.modal.show{display:flex}.box{background:#fff;width:min(850px,100%);max-height:92vh;overflow:auto;border-radius:22px}.modalgallery{height:360px}.modalbody{padding:24px}.close{position:absolute;right:20px;top:15px;border:0;background:#fff;border-radius:50%;width:38px;height:38px;font-size:22px}.summary{background:#f7f8fa;padding:17px;border-radius:14px;margin:15px 0}.pay{width:100%;border:0;background:var(--accent);color:#fff;padding:15px;border-radius:12px;font-weight:750;font-size:16px}
-.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:13px 18px;border-radius:12px;display:none;z-index:100}.toast.show{display:block}
-footer{background:#111827;color:#cbd5e1;padding:40px 6%;margin-top:20px}.footerlogo{color:#fff;font-size:20px;font-weight:800}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.search{grid-template-columns:1fr 1fr}.searchbtn{height:48px}.features{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.nav{padding:0 18px}.navlinks{display:none}.hero{padding:35px 18px 60px}.hero h1{font-size:35px}.search{grid-template-columns:1fr;gap:0}.field{border-right:0;border-bottom:1px solid var(--line)}.searchbtn{height:48px;margin-top:7px}.wrap{padding:30px 15px}.grid{grid-template-columns:1fr}.gallery{height:250px}.features{grid-template-columns:1fr 1fr}.modalgallery{height:260px}}
+:root{--ink:#172033;--muted:#6b7280;--line:#e7e9ee;--bg:#f7f8fa;--card:#fff;--red:#e11d48;--dark:#111827;--green:#087443}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+.nav{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;z-index:50}.logo{font-size:24px;font-weight:850;letter-spacing:-1px}.logo span{color:var(--red)}.navlinks{display:flex;gap:25px;font-size:14px;color:#4b5563}.navlinks span{cursor:pointer}.login{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 16px}
+.hero{background:linear-gradient(120deg,#111827,#26364d);color:#fff;padding:55px 5% 76px}.heroIn{max-width:1180px;margin:auto}.eyebrow{font-size:12px;letter-spacing:1.5px;color:#cbd5e1;font-weight:700}.hero h1{font-size:44px;line-height:1.05;max-width:680px;letter-spacing:-2px;margin:16px 0 12px}.hero p{color:#d1d5db;max-width:600px}
+.search{margin-top:30px;background:#fff;color:var(--ink);padding:8px;border-radius:18px;display:grid;grid-template-columns:1.2fr 1fr 1fr .9fr auto;box-shadow:0 20px 45px #0005}.field{padding:11px 14px;border-right:1px solid var(--line)}.field label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.field input,.field select{width:100%;border:0;outline:0;background:#fff;color:var(--ink);font-weight:650}.searchBtn{border:0;background:var(--red);color:#fff;border-radius:13px;padding:0 23px;font-weight:750}
+.wrap{max-width:1200px;margin:auto;padding:40px 18px}.head{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}.head h2{margin:0;font-size:26px}.head p{margin:5px 0 0;color:var(--muted);font-size:14px}.filters{display:flex;gap:9px;overflow:auto;margin-bottom:24px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;padding:10px 16px;border-radius:999px}.chip.active{background:var(--dark);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:21px}.card{background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;transition:.2s}.card:hover{transform:translateY(-3px);box-shadow:0 15px 35px #11182712}.gallery{height:235px;position:relative;overflow:hidden}.gallery img{width:100%;height:100%;object-fit:cover;display:none}.gallery img.active{display:block}.badge{position:absolute;top:12px;left:12px;background:#fff;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:750}.heart{position:absolute;right:12px;top:12px;border:0;background:#fff;border-radius:50%;width:35px;height:35px;font-size:18px}.arrow{position:absolute;top:50%;transform:translateY(-50%);border:0;background:#ffffffdf;border-radius:50%;width:32px;height:32px;font-size:20px}.prev{left:10px}.next{right:10px}.dots{position:absolute;bottom:11px;left:50%;transform:translateX(-50%);display:flex;gap:5px}.dot{width:6px;height:6px;border-radius:50%;background:#ffffff88}.dot.active{background:#fff}
+.info{padding:16px}.loc{font-size:12px;color:var(--muted)}.name{font-weight:800;font-size:18px;margin:5px 0}.meta{font-size:13px;color:var(--muted);line-height:1.5}.bottom{display:flex;justify-content:space-between;align-items:end;margin-top:14px}.price b{font-size:18px}.price small{color:var(--muted);font-size:12px}.rating{font-size:12px;margin-top:3px}.view{border:0;background:var(--dark);color:#fff;border-radius:10px;padding:9px 13px;font-weight:700}
+.cities{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}.city{height:150px;border-radius:17px;overflow:hidden;position:relative;background:#ddd}.city img{width:100%;height:100%;object-fit:cover}.city div{position:absolute;inset:auto 0 0;padding:35px 15px 13px;color:#fff;font-weight:800;background:linear-gradient(transparent,#000a)}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}.whyBox{background:#fff;border:1px solid var(--line);border-radius:15px;padding:20px}.whyBox b{display:block;margin-bottom:6px}.whyBox span{font-size:13px;color:var(--muted)}
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:100;align-items:center;justify-content:center;padding:12px}.modal.show{display:flex}.box{background:#fff;width:min(940px,100%);max-height:94vh;overflow:auto;border-radius:22px}.modalHead{position:relative}.modalGallery{height:360px}.modalGallery img{width:100%;height:100%;object-fit:cover;display:none}.modalGallery img.active{display:block}.close{position:absolute;right:15px;top:15px;border:0;background:#fff;border-radius:50%;width:38px;height:38px;font-size:22px;z-index:2}.modalBody{padding:23px}.steps{display:flex;gap:7px;margin:10px 0 20px}.step{font-size:11px;padding:7px 11px;border-radius:999px;background:#f1f3f5;color:#6b7280}.step.on{background:#111827;color:#fff}
+.room{border:1px solid var(--line);border-radius:15px;padding:15px;margin:10px 0;display:flex;justify-content:space-between;gap:15px;align-items:center}.room h4{margin:0 0 5px}.room p{margin:0;color:var(--muted);font-size:12px}.room button{border:0;background:var(--dark);color:#fff;border-radius:9px;padding:10px 13px}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form label{font-size:12px;color:var(--muted)}.form input,.form select{width:100%;margin-top:5px;border:1px solid var(--line);border-radius:10px;padding:12px;outline:0}.full{grid-column:1/-1}.summary{background:#f7f8fa;border-radius:14px;padding:16px;margin:18px 0}.row{display:flex;justify-content:space-between;margin:7px 0;font-size:14px}.total{border-top:1px solid var(--line);padding-top:12px;margin-top:12px;font-weight:800;font-size:18px}.payMethods{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.method{border:1px solid var(--line);background:#fff;padding:12px;border-radius:10px;text-align:center;font-size:12px}.method.active{border:2px solid var(--dark)}.primary{width:100%;border:0;background:var(--red);color:#fff;border-radius:12px;padding:14px;font-weight:800}.success{text-align:center;padding:25px}.successCircle{width:65px;height:65px;background:#e7f8ef;color:var(--green);border-radius:50%;display:grid;place-items:center;margin:auto;font-size:30px}.code{background:#111827;color:#fff;border-radius:12px;padding:14px;font-weight:800;letter-spacing:2px;margin:18px 0}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:12px 17px;border-radius:12px;display:none;z-index:200}.toast.show{display:block}
+footer{background:#111827;color:#cbd5e1;padding:38px 5%;margin-top:20px}.flogo{font-size:21px;font-weight:850;color:#fff}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.search{grid-template-columns:1fr 1fr}.searchBtn{height:48px;margin-top:5px}.cities,.why{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.nav{padding:0 16px}.navlinks{display:none}.hero{padding:38px 16px 58px}.hero h1{font-size:35px}.search{grid-template-columns:1fr}.field{border-right:0;border-bottom:1px solid var(--line)}.searchBtn{height:48px}.wrap{padding:30px 14px}.grid{grid-template-columns:1fr}.gallery{height:250px}.cities{grid-template-columns:1fr 1fr}.why{grid-template-columns:1fr 1fr}.modalGallery{height:250px}.form{grid-template-columns:1fr}.full{grid-column:auto}.payMethods{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
-
 <nav class="nav">
-  <div class="logo">stay<span>ly</span></div>
-  <div class="navlinks"><a>Homestay</a><a>Promo</a><a>Favorit</a><a>Tentang</a></div>
-  <button class="navbtn" onclick="showToast('Fitur login prototype')">Masuk / Daftar</button>
+ <div class="logo">stay<span>Malaysia</span></div>
+ <div class="navlinks"><span onclick="scrollToId('stays')">Penginapan</span><span onclick="scrollToId('cities')">Destinasi</span><span>Promosi</span><span>Senarai Anda</span></div>
+ <button class="login" onclick="toast('Log masuk / daftar akan disambungkan ke sistem akaun')">Log Masuk</button>
 </nav>
 
 <section class="hero">
-  <div style="max-width:1200px;margin:auto">
-    <div style="font-size:13px;color:#cbd5e1">STAYLY · HOMESTAY & VILLA</div>
-    <h1>Temukan tempat menginap yang terasa seperti rumah.</h1>
-    <p>Pesan homestay nyaman, villa private, dan penginapan pilihan dengan proses booking yang simpel dan aman.</p>
-    <div class="search">
-      <div class="field"><small>Lokasi</small><input id="location" value="Ubud, Bali" /></div>
-      <div class="field"><small>Check-in</small><input type="date" id="checkin"></div>
-      <div class="field"><small>Check-out</small><input type="date" id="checkout"></div>
-      <div class="field"><small>Tamu</small><input id="guests" value="2 Tamu" /></div>
-      <button class="searchbtn" onclick="searchStay()">Cari</button>
-    </div>
+ <div class="heroIn">
+  <div class="eyebrow">HOMESTAY · HOTEL · VILLA · CHALET</div>
+  <h1>Temui penginapan yang sesuai untuk perjalanan anda.</h1>
+  <p>Tempah homestay, villa dan penginapan pilihan di seluruh Malaysia dengan pengalaman tempahan yang mudah.</p>
+  <div class="search">
+   <div class="field"><label>Lokasi</label><input id="location" value="Kuala Lumpur"></div>
+   <div class="field"><label>Daftar masuk</label><input id="checkin" type="date"></div>
+   <div class="field"><label>Daftar keluar</label><input id="checkout" type="date"></div>
+   <div class="field"><label>Tetamu</label><select id="guests"><option>2 Tetamu</option><option>3 Tetamu</option><option>4 Tetamu</option><option>5 Tetamu</option></select></div>
+   <button class="searchBtn" onclick="search()">Cari Penginapan</button>
   </div>
+ </div>
 </section>
 
-<main class="wrap">
-  <div class="sectionhead">
-    <div><h2>Penginapan pilihan</h2><span>Tempat nyaman untuk perjalananmu</span></div>
-    <span id="resultText">12 penginapan</span>
-  </div>
+<main class="wrap" id="stays">
+ <div class="head"><div><h2>Penginapan pilihan</h2><p>Pilihan popular untuk percutian anda</p></div><span id="count" style="color:#6b7280;font-size:13px"></span></div>
+ <div class="filters">
+  <button class="chip active" onclick="filter('all',this)">Semua</button><button class="chip" onclick="filter('homestay',this)">Homestay</button><button class="chip" onclick="filter('villa',this)">Villa</button><button class="chip" onclick="filter('hotel',this)">Hotel</button><button class="chip" onclick="filter('budget',this)">Bajet</button>
+ </div>
+ <div class="grid" id="grid"></div>
 
-  <div class="filters">
-    <button class="chip active" onclick="filterCards('all',this)">Semua</button>
-    <button class="chip" onclick="filterCards('villa',this)">Villa</button>
-    <button class="chip" onclick="filterCards('homestay',this)">Homestay</button>
-    <button class="chip" onclick="filterCards('budget',this)">Budget</button>
-    <button class="chip" onclick="filterCards('private',this)">Private Pool</button>
-  </div>
+ <div class="head" style="margin-top:55px" id="cities"><div><h2>Destinasi popular</h2><p>Terokai penginapan di bandar pilihan Malaysia</p></div></div>
+ <div class="cities">
+  <div class="city"><img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80"><div>Kuala Lumpur</div></div>
+  <div class="city"><img src="https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=800&q=80"><div>Penang</div></div>
+  <div class="city"><img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80"><div>Langkawi</div></div>
+  <div class="city"><img src="https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?auto=format&fit=crop&w=800&q=80"><div>Melaka</div></div>
+ </div>
 
-  <div class="grid" id="grid"></div>
-
-  <div class="sectionhead" style="margin-top:55px"><div><h2>Kenapa booking di Stayly?</h2><span>Pengalaman booking yang sederhana</span></div></div>
-  <div class="features">
-    <div class="feature"><b>Pembayaran aman</b><span>Siap dihubungkan ke payment gateway.</span></div>
-    <div class="feature"><b>Foto transparan</b><span>Lihat eksterior dan interior dalam satu katalog.</span></div>
-    <div class="feature"><b>Booking cepat</b><span>Pilih tanggal, tamu, lalu konfirmasi.</span></div>
-    <div class="feature"><b>Support</b><span>Bantuan untuk kebutuhan perjalananmu.</span></div>
-  </div>
+ <div class="head" style="margin-top:55px"><div><h2>Kenapa tempah di sini?</h2><p>Direka untuk pengalaman tempahan yang mudah</p></div></div>
+ <div class="why">
+  <div class="whyBox"><b>Pembayaran selamat</b><span>Sokongan FPX, DuitNow QR, kad dan e-wallet melalui payment gateway.</span></div>
+  <div class="whyBox"><b>Foto lengkap</b><span>Lihat bahagian luar, ruang tamu, bilik dan kemudahan melalui galeri.</span></div>
+  <div class="whyBox"><b>Harga dalam RM</b><span>Semua harga dipaparkan dalam Ringgit Malaysia.</span></div>
+  <div class="whyBox"><b>Tempahan pantas</b><span>Pilih bilik, isi maklumat tetamu dan buat pembayaran.</span></div>
+ </div>
 </main>
+<footer><div class="flogo">stayMalaysia</div><p>Prototype platform tempahan penginapan Malaysia.</p></footer>
 
-<footer><div class="footerlogo">stayly</div><p>Prototype web app booking homestay — clean, modern & mobile friendly.</p></footer>
-
-<div class="modal" id="modal">
-  <div class="box">
-    <div style="position:relative">
-      <button class="close" onclick="closeModal()">×</button>
-      <div class="gallery modalgallery" id="modalGallery"></div>
-    </div>
-    <div class="modalbody">
-      <div class="location" id="mLocation"></div>
-      <h2 id="mName" style="margin:6px 0"></h2>
-      <div id="mMeta" class="meta"></div>
-      <div class="summary">
-        <div style="display:flex;justify-content:space-between"><span>Harga / malam</span><b id="mPrice"></b></div>
-        <div style="display:flex;justify-content:space-between;margin-top:8px"><span>Check-in / Check-out</span><span id="mDates">Pilih tanggal</span></div>
-        <div style="display:flex;justify-content:space-between;margin-top:8px"><span>Total</span><b id="mTotal"></b></div>
-      </div>
-      <button class="pay" onclick="payment()">Lanjut ke Pembayaran</button>
-    </div>
-  </div>
-</div>
+<div class="modal" id="modal"><div class="box" id="modalBox"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 const stays=[
- {type:'villa private',name:'Sundari Private Villa',loc:'Ubud, Bali',price:850000,rating:'4.9',meta:'2 kamar · 4 tamu · Private Pool',imgs:['https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1000&q=80']},
- {type:'homestay',name:'Kayon House Ubud',loc:'Ubud, Bali',price:475000,rating:'4.8',meta:'1 kamar · 2 tamu · Breakfast',imgs:['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=80']},
- {type:'budget',name:'Nara Stay & Coffee',loc:'Bandung, Jawa Barat',price:295000,rating:'4.7',meta:'1 kamar · 2 tamu · Wi-Fi',imgs:['https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80']},
- {type:'villa private',name:'Luma Hills Villa',loc:'Puncak, Jawa Barat',price:720000,rating:'4.9',meta:'2 kamar · 5 tamu · Mountain View',imgs:['https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1000&q=80']},
- {type:'homestay',name:'Rumah Kayu Senja',loc:'Yogyakarta',price:390000,rating:'4.8',meta:'2 kamar · 4 tamu · Kitchen',imgs:['https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1000&q=80']},
- {type:'budget',name:'Kota View Residence',loc:'Jakarta Selatan',price:340000,rating:'4.6',meta:'1 kamar · 2 tamu · City View',imgs:['https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80','https://images.unsplash.com/photo-1617104678098-de229db51175?auto=format&fit=crop&w=1000&q=80']}
+ {type:'villa',name:'The Garden Villa KL',loc:'Kuala Lumpur',price:420,rating:'4.9',meta:'2 bilik · 4 tetamu · Kolam renang',imgs:['https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85']},
+ {type:'homestay',name:'Seri Damai Homestay',loc:'Shah Alam, Selangor',price:180,rating:'4.8',meta:'3 bilik · 6 tetamu · Dapur',imgs:['https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85']},
+ {type:'hotel',name:'Penang Heritage Stay',loc:'George Town, Penang',price:260,rating:'4.7',meta:'1 bilik · 2 tetamu · Sarapan',imgs:['https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=85']},
+ {type:'villa',name:'Langkawi Bay Villa',loc:'Langkawi, Kedah',price:580,rating:'4.9',meta:'3 bilik · 6 tetamu · Pemandangan laut',imgs:['https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85']},
+ {type:'homestay',name:'Rumah Warisan Melaka',loc:'Melaka',price:210,rating:'4.8',meta:'2 bilik · 5 tetamu · Parking',imgs:['https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1200&q=85']},
+ {type:'budget',name:'Ipoh Cozy Residence',loc:'Ipoh, Perak',price:135,rating:'4.6',meta:'1 bilik · 2 tetamu · Wi-Fi',imgs:['https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=85','https://images.unsplash.com/photo-1617104678098-de229db51175?auto=format&fit=crop&w=1200&q=85']}
 ];
+let filtered=stays,current=null,modalImg=0,booking={room:null};
 
-let currentStay=null, galleryIndex=0;
-
-function money(n){return 'Rp '+n.toLocaleString('id-ID')}
+function rm(n){return 'RM '+n.toLocaleString('ms-MY',{minimumFractionDigits:0})}
 function render(list=stays){
- const grid=document.getElementById('grid'); grid.innerHTML='';
- document.getElementById('resultText').textContent=list.length+' penginapan';
+ filtered=list;const g=document.getElementById('grid');g.innerHTML='';document.getElementById('count').textContent=list.length+' penginapan';
  list.forEach((s,i)=>{
-   const card=document.createElement('div'); card.className='card';
-   card.dataset.type=s.type;
-   card.innerHTML=`<div class="gallery" id="g${i}">
-      ${s.imgs.map((im,j)=>`<img src="${im}" class="${j===0?'active':''}" alt="${s.name}">`).join('')}
-      <span class="badge">Pilihan tamu</span>
-      <button class="arrow prev" onclick="slide(${i},-1,event)">‹</button><button class="arrow next" onclick="slide(${i},1,event)">›</button>
-      <div class="dots">${s.imgs.map((_,j)=>`<i class="dot ${j===0?'active':''}"></i>`).join('')}</div>
-   </div>
-   <div class="info"><div class="location">${s.loc}</div><div class="name">${s.name}</div><div class="meta">${s.meta}</div>
-   <div class="price"><div><strong>${money(s.price)}</strong><small> / malam</small><div style="font-size:12px;margin-top:4px">★ ${s.rating}</div></div><button class="book" onclick="openModal(${i})">Lihat & Booking</button></div></div>`;
-   grid.appendChild(card);
+  const c=document.createElement('article');c.className='card';
+  c.innerHTML=`<div class="gallery" id="gal${i}">${s.imgs.map((x,j)=>`<img src="${x}" class="${j?'':'active'}">`).join('')}<span class="badge">Pilihan tetamu</span><button class="heart" onclick="fav(event)">♡</button><button class="arrow prev" onclick="slide(${i},-1,event)">‹</button><button class="arrow next" onclick="slide(${i},1,event)">›</button><div class="dots">${s.imgs.map((_,j)=>`<i class="dot ${j?'':'active'}"></i>`).join('')}</div></div><div class="info"><div class="loc">${s.loc}</div><div class="name">${s.name}</div><div class="meta">${s.meta}</div><div class="bottom"><div class="price"><b>${rm(s.price)}</b> <small>/ malam</small><div class="rating">★ ${s.rating}</div></div><button class="view" onclick="details(${i})">Lihat</button></div></div>`;
+  g.appendChild(c);
  });
 }
-function slide(i,dir,e){e.stopPropagation();const g=document.getElementById('g'+i),imgs=[...g.querySelectorAll('img')],dots=[...g.querySelectorAll('.dot')];let x=imgs.findIndex(x=>x.classList.contains('active'));x=(x+dir+imgs.length)%imgs.length;imgs.forEach(x=>x.classList.remove('active'));dots.forEach(x=>x.classList.remove('active'));imgs[x].classList.add('active');dots[x].classList.add('active')}
-function openModal(i){currentStay=stays[i];galleryIndex=0;document.getElementById('modal').classList.add('show');document.getElementById('mLocation').textContent=currentStay.loc;document.getElementById('mName').textContent=currentStay.name;document.getElementById('mMeta').textContent=currentStay.meta+' · ★ '+currentStay.rating;document.getElementById('mPrice').textContent=money(currentStay.price);updateDates();renderModalGallery()}
-function renderModalGallery(){const g=document.getElementById('modalGallery');g.innerHTML=currentStay.imgs.map((im,j)=>`<img src="${im}" class="${j===galleryIndex?'active':''}" style="width:100%;height:100%;object-fit:cover;display:${j===galleryIndex?'block':'none'}">`).join('')+`<button class="arrow prev" onclick="modalSlide(-1)">‹</button><button class="arrow next" onclick="modalSlide(1)">›</button>`}
-function modalSlide(d){galleryIndex=(galleryIndex+d+currentStay.imgs.length)%currentStay.imgs.length;renderModalGallery()}
+function slide(i,d,e){e.stopPropagation();let g=document.getElementById('gal'+i),a=[...g.querySelectorAll('img')],ds=[...g.querySelectorAll('.dot')],x=a.findIndex(v=>v.classList.contains('active'));x=(x+d+a.length)%a.length;a.forEach(v=>v.classList.remove('active'));ds.forEach(v=>v.classList.remove('active'));a[x].classList.add('active');ds[x].classList.add('active')}
+function fav(e){e.stopPropagation();e.currentTarget.textContent=e.currentTarget.textContent==='♡'?'♥':'♡'}
+function filter(type,btn){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));btn.classList.add('active');render(type==='all'?stays:stays.filter(s=>s.type===type))}
+function search(){const q=document.getElementById('location').value.trim().toLowerCase();let x=stays.filter(s=>s.loc.toLowerCase().includes(q)||s.name.toLowerCase().includes(q));if(!x.length)x=stays;render(x);scrollToId('stays');toast('Hasil carian untuk '+document.getElementById('location').value)}
+function details(i){current=filtered[i];booking.room=null;modalImg=0;showStep(1)}
+function showStep(step){
+ const s=current;let content='';
+ if(step===1) content=`<div class="modalHead"><button class="close" onclick="closeModal()">×</button><div class="modalGallery">${s.imgs.map((x,j)=>`<img src="${x}" class="${j?'':'active'}" id="mi${j}">`).join('')}<button class="arrow prev" onclick="mSlide(-1)">‹</button><button class="arrow next" onclick="mSlide(1)">›</button></div></div><div class="modalBody"><div class="steps"><span class="step on">1 Penginapan</span><span class="step">2 Pilih bilik</span><span class="step">3 Tetamu</span><span class="step">4 Bayaran</span></div><div style="color:#6b7280;font-size:12px">${s.loc}</div><h2 style="margin:5px 0">${s.name}</h2><div class="meta">${s.meta} · ★ ${s.rating}</div><h3>Pilih jenis bilik</h3><div class="room"><div><h4>Bilik Standard</h4><p>1 katil queen · 2 tetamu · Wi-Fi · Pendingin hawa</p></div><div><b>${rm(s.price)}</b><br><button onclick="chooseRoom()">Pilih</button></div></div><div class="room"><div><h4>Bilik Family</h4><p>2 katil · 4 tetamu · Sarapan · Parking</p></div><div><b>${rm(s.price+90)}</b><br><button onclick="chooseRoom(${s.price+90},'Bilik Family')">Pilih</button></div></div></div>`;
+ if(step===2) content=`<div class="modalBody"><button class="close" onclick="closeModal()">×</button><div class="steps"><span class="step on">1</span><span class="step on">2 Pilih bilik</span><span class="step">3 Tetamu</span><span class="step">4 Bayaran</span></div><h2>Maklumat tempahan</h2><div class="summary"><div class="row"><span>Penginapan</span><b>${s.name}</b></div><div class="row"><span>Bilik</span><span>${booking.roomName}</span></div><div class="row"><span>Tarikh</span><span>${dateText()}</span></div><div class="row"><span>Harga / malam</span><span>${rm(booking.price)}</span></div></div><button class="primary" onclick="guestStep()">Teruskan</button></div>`;
+ if(step===3) content=`<div class="modalBody"><button class="close" onclick="closeModal()">×</button><div class="steps"><span class="step on">1</span><span class="step on">2</span><span class="step on">3 Tetamu</span><span class="step">4 Bayaran</span></div><h2>Maklumat tetamu</h2><div class="form"><label>Nama penuh<input id="guestName" placeholder="Nama seperti dalam kad pengenalan"></label><label>No. telefon<input id="phone" placeholder="+60 12-345 6789"></label><label class="full">E-mel<input id="email" type="email" placeholder="nama@email.com"></label><label class="full">Permintaan khas (pilihan)<input id="note" placeholder="Contoh: daftar masuk lewat"></label></div><button class="primary" style="margin-top:18px" onclick="paymentStep()">Teruskan ke bayaran</button></div>`;
+ if(step===4) content=`<div class="modalBody"><button class="close" onclick="closeModal()">×</button><div class="steps"><span class="step on">1</span><span class="step on">2</span><span class="step on">3</span><span class="step on">4 Bayaran</span></div><h2>Pembayaran</h2><div class="summary"><div class="row"><span>${s.name}</span><b>${booking.roomName}</b></div><div class="row"><span>Jumlah malam</span><span>${nights()} malam</span></div><div class="row"><span>Harga bilik</span><span>${rm(booking.price*nights())}</span></div><div class="row"><span>Caj perkhidmatan</span><span>${rm(Math.round(booking.price*nights()*.03))}</span></div><div class="row total"><span>Jumlah bayaran</span><span>${rm(total())}</span></div></div><p style="font-weight:700">Pilih kaedah pembayaran</p><div class="payMethods"><button class="method active">FPX</button><button class="method">DuitNow QR</button><button class="method">Kad</button><button class="method">E-Wallet</button></div><button class="primary" style="margin-top:16px" onclick="success()">Bayar ${rm(total())}</button><p style="text-align:center;color:#6b7280;font-size:11px">Prototype — payment gateway sebenar boleh disambungkan kemudian.</p></div>`;
+ document.getElementById('modalBox').innerHTML=content;document.getElementById('modal').classList.add('show');
+}
+function mSlide(d){modalImg=(modalImg+d+current.imgs.length)%current.imgs.length;document.querySelectorAll('.modalGallery img').forEach((x,i)=>x.classList.toggle('active',i===modalImg))}
+function chooseRoom(price=current.price,name='Bilik Standard'){booking.price=price;booking.roomName=name;showStep(2)}
+function guestStep(){showStep(3)}
+function paymentStep(){if(!document.getElementById('guestName').value||!document.getElementById('phone').value||!document.getElementById('email').value){toast('Sila lengkapkan maklumat tetamu');return}showStep(4)}
+function nights(){let a=document.getElementById('checkin').value,b=document.getElementById('checkout').value;if(!a||!b)return 1;return Math.max(1,Math.ceil((new Date(b)-new Date(a))/86400000))}
+function total(){return Math.round(booking.price*nights()*1.03)}
+function dateText(){let a=document.getElementById('checkin').value,b=document.getElementById('checkout').value;return a&&b?a+' → '+b:'Tarikh belum dipilih'}
+function success(){let code='MY'+Math.floor(100000+Math.random()*899999);document.getElementById('modalBox').innerHTML=`<div class="success"><div class="successCircle">✓</div><h2>Tempahan berjaya!</h2><p>Terima kasih. Tempahan anda telah diterima dalam prototype ini.</p><div class="code">${code}</div><div class="summary" style="text-align:left"><div class="row"><span>Penginapan</span><b>${current.name}</b></div><div class="row"><span>Bilik</span><span>${booking.roomName}</span></div><div class="row"><span>Jumlah</span><b>${rm(total())}</b></div></div><button class="primary" onclick="closeModal()">Kembali ke laman utama</button></div>`}
 function closeModal(){document.getElementById('modal').classList.remove('show')}
-function updateDates(){let a=document.getElementById('checkin').value,b=document.getElementById('checkout').value;if(a&&b){let days=Math.max(1,Math.ceil((new Date(b)-new Date(a))/86400000));document.getElementById('mDates').textContent=a+' → '+b;document.getElementById('mTotal').textContent=money(currentStay.price*days)}else document.getElementById('mTotal').textContent=money(currentStay.price)}
-document.getElementById('checkin').addEventListener('change',updateDates);document.getElementById('checkout').addEventListener('change',updateDates);
-function payment(){showToast('Demo: diarahkan ke payment gateway');setTimeout(()=>showToast('Checkout payment gateway siap diintegrasikan'),1200)}
-function filterCards(type,btn){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));btn.classList.add('active');if(type==='all')render();else render(stays.filter(s=>s.type.includes(type)))}
-function searchStay(){showToast('Pencarian: '+document.getElementById('location').value)}
-function showToast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}
+function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function toast(t){let x=document.getElementById('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2200)}
 render();
 </script>
 </body>
